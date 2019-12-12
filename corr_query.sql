@@ -38,3 +38,21 @@ where u.Age > (
 				where u.ID = uin.user_id
 			  )
 
+-- using CTE
+;with tin as
+(
+	select * from dbo.users_table_records
+)
+select tin.ID, tin.Name, tin.Street, tin.user_id, tin.Age
+from tin
+inner join dbo.users_table_records tout on tin.ID = tout.user_id
+where tin.Age > tout.Age
+order by tin.ID
+
+-- using self join
+select t.ID, t.Name, t.Street, t.user_id, t.Age
+from dbo.users_table_records t
+inner join dbo.users_table_records s
+on t.ID = s.user_id
+where t.Age > s.Age
+
